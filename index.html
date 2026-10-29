@@ -6,177 +6,242 @@
 <title>Class Half Empty</title>
 <meta name="description" content="Find an empty classroom at the Technion, right now or at any hour of the week. Independent student project; data via CheeseFork.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2080%22%3E%3Cpath%20d%3D%22M14%2040%20H50%20L48.5%2072%20Q48%2076%2044%2076%20H20%20Q16%2076%2015.5%2072%20Z%22%20fill%3D%22%235DB0E3%22/%3E%3Cpath%20d%3D%22M10%206%20H54%20L48.5%2072%20Q48%2076%2044%2076%20H20%20Q16%2076%2015.5%2072%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231C2E3D%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2080%22%3E%3Cpath%20d%3D%22M14%2040%20H50%20L48.5%2072%20Q48%2076%2044%2076%20H20%20Q16%2076%2015.5%2072%20Z%22%20fill%3D%22%232B8CF5%22/%3E%3Cpath%20d%3D%22M10%206%20H54%20L48.5%2072%20Q48%2076%2044%2076%20H20%20Q16%2076%2015.5%2072%20Z%22%20fill%3D%22none%22%20stroke%3D%22%230A1F3D%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+<!-- Privacy: the page may only load its own files and the public timetable. No analytics, no cookies, no third-party fonts. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
 <style>
+/* Fonts are served from this site (fonts/, SIL Open Font License), so visitors never contact Google. */
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 400;font-display: swap;src: url(fonts/Assistant-hebrew.woff2) format('woff2');unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 400;font-display: swap;src: url(fonts/Assistant-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 600;font-display: swap;src: url(fonts/Assistant-hebrew.woff2) format('woff2');unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 600;font-display: swap;src: url(fonts/Assistant-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 700;font-display: swap;src: url(fonts/Assistant-hebrew.woff2) format('woff2');unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 700;font-display: swap;src: url(fonts/Assistant-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 800;font-display: swap;src: url(fonts/Assistant-hebrew.woff2) format('woff2');unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;}
+@font-face {font-family: 'Assistant';font-style: normal;font-weight: 800;font-display: swap;src: url(fonts/Assistant-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Source Sans 3';font-style: normal;font-weight: 400;font-display: swap;src: url(fonts/SourceSans3-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Source Sans 3';font-style: normal;font-weight: 600;font-display: swap;src: url(fonts/SourceSans3-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Source Sans 3';font-style: normal;font-weight: 700;font-display: swap;src: url(fonts/SourceSans3-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face {font-family: 'Source Sans 3';font-style: normal;font-weight: 800;font-display: swap;src: url(fonts/SourceSans3-latin.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+/* Layout: campus room signage. A royal-blue "right now" sign, then building plates you swipe through,
+   all on a light-blue sheet framed by a wallpaper of glasses (half full, and upside down half empty). */
+:root{
+  --frame:#15287E; --royal:#1A3196; --sheet:#DCEAFF; --plate:#F6FAFF; --ink:#0A1F4D; --ink-2:#34507F; --muted:#5D7499;
+  --line:#BCD3F3; --line-2:#D9E7FA; --accent:#0B6FE0; --sky:#9CC8FF; --sign-ink:#FFFFFF; --sign-soft:#BFD9FF;
+  --water:#2B8CF5; --live:#19B877; --soon:#B45309; --card:#FFFFFF; --tile:#EAF2FF;
+  /* Source Sans 3 for Latin, Assistant (its Hebrew companion) for building and course names */
+  --sans:"Source Sans 3", "Assistant", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --he:"Assistant", "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --frame:#0A1650; --royal:#1A3196; --sheet:#0F2250; --plate:#15295C; --ink:#E6F0FF; --ink-2:#B7CAEB; --muted:#88A2CE;
+  --line:#2A4683; --line-2:#1D366D; --accent:#6AB4FF; --sky:#9CC8FF; --sign-ink:#FFFFFF; --sign-soft:#BFD9FF;
+  --water:#3A97FF; --live:#3BE29A; --soon:#F5B04A; --card:#15295C; --tile:#1E3B78; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --frame:#0A1650; --royal:#1A3196; --sheet:#0F2250; --plate:#15295C; --ink:#E6F0FF; --ink-2:#B7CAEB; --muted:#88A2CE;
+  --line:#2A4683; --line-2:#1D366D; --accent:#6AB4FF; --sky:#9CC8FF; --sign-ink:#FFFFFF; --sign-soft:#BFD9FF;
+  --water:#3A97FF; --live:#3BE29A; --soon:#F5B04A; --card:#15295C; --tile:#1E3B78; color-scheme:dark}
+
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0}
 [hidden]{display:none!important}
-.needs-data{display:flex;flex-direction:column;gap:22px}
-.loading .needs-data{display:none}
-.snap label{font-weight:600}
-.snap select{width:auto;display:inline-block;padding:3px 8px;margin:0 8px 0 4px}
-button.link{background:none;border:0;padding:0;color:var(--accent-ink);text-decoration:underline;cursor:pointer}
-/* Layout: one calm column; a glass of water heads the page and its level is the campus right now. */
-:root{
-  --bg:#FFFFFF; --surface:#F2F7FB; --ink:#1C2E3D; --muted:#5A7184; --line:#E1ECF4;
-  --water:#5DB0E3; --water-soft:#B9E0F6; --accent:#2F8FD0; --accent-ink:#1C5A85; --chip:#EAF4FB; --tag:#FFFFFF; --tag-line:#CFE3F1;
-  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1A24; --surface:#15242F; --ink:#E3EDF4; --muted:#93A9BA; --line:#22394A;
-  --water:#4A9FD6; --water-soft:#1F4A66; --accent:#6CB8EA; --accent-ink:#9CCFF2; --chip:#17324A; --tag:#132430; --tag-line:#2A4A61; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0E1A24; --surface:#15242F; --ink:#E3EDF4; --muted:#93A9BA; --line:#22394A;
-  --water:#4A9FD6; --water-soft:#1F4A66; --accent:#6CB8EA; --accent-ink:#9CCFF2; --chip:#17324A; --tag:#132430; --tag-line:#2A4A61; color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
-.wrap{max-width:980px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:22px}
-a{color:var(--accent-ink)}
+body{background:var(--frame);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
 button,select,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.he{font-family:var(--he);direction:rtl;text-align:right}
+.num{font-variant-numeric:tabular-nums lining-nums}
 
-.hero{display:flex;align-items:center;gap:22px}
-.hero svg{flex:none;width:68px;height:85px}
-.hero > div{min-width:0}
-.name{font-family:var(--display);font-weight:800;font-size:2.6rem;letter-spacing:-.03em;line-height:1.02;margin:0;text-wrap:balance}
-.name span{color:var(--accent)}
-.tagline{color:var(--muted);margin-top:4px}
-.stat{display:inline-block;margin-top:10px;padding:4px 12px;border-radius:999px;background:var(--chip);color:var(--accent-ink);font-size:.9rem}
-.note{color:var(--muted);font-size:.8rem;margin-top:8px}
-.glass .bg{fill:var(--surface)} .glass .w1{fill:var(--water-soft)} .glass .w2{fill:var(--water)}
-.glass .rim{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
-.glass .shine{stroke:#fff;stroke-width:2.5;stroke-linecap:round;opacity:.55}
-.glass .w2{animation:wave 3s linear infinite} .glass .w1{animation:wave 5s linear infinite reverse}
-@keyframes wave{to{transform:translateX(32px)}}
-@media (prefers-reduced-motion:reduce){.glass .w1,.glass .w2{animation:none}}
+/* wallpaper frame */
+body::before{content:"";position:fixed;inset:-60%;z-index:-1;pointer-events:none;transform:rotate(-14deg);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='220' viewBox='0 0 130 220'%3E%3Cg fill='none' stroke='%239CC8FF' stroke-opacity='.5' stroke-width='2.5' stroke-linejoin='round'%3E%3Cg transform='translate%2810 15%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate%2875.0 125.0%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate%28-55.0 125.0%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 0 / 54.6px 92.4px var(--frame);}
+.page{padding-block:max(28px, env(safe-area-inset-top, 0px)) calc(28px + env(safe-area-inset-bottom, 0px));
+  padding-left:max(28px, env(safe-area-inset-left, 0px));padding-right:max(28px, env(safe-area-inset-right, 0px))}
+.sheet{max-width:1120px;margin:0 auto;background:var(--sheet);border-radius:6px;overflow:hidden}
+.gutter{padding-left:clamp(16px, 4vw, 40px);padding-right:clamp(16px, 4vw, 40px)}
 
-.snap{font-size:.85rem;color:var(--muted);background:var(--surface);border-radius:12px;padding:10px 14px}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field{display:flex;flex-direction:column;gap:4px;min-width:0}
-.field label{font-size:.8rem;font-weight:600;color:var(--muted);letter-spacing:.02em}
-select,input[type=search]{background:var(--bg);border:1px solid var(--tag-line);border-radius:10px;padding:8px 10px;width:100%;min-width:0}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
-.tab{background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;cursor:pointer;color:var(--muted);font-weight:600;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-.panel{display:flex;flex-direction:column;gap:14px}
-.seg{display:inline-flex;background:var(--surface);border-radius:999px;padding:3px;align-self:flex-start}
-.seg button{border:0;background:none;border-radius:999px;padding:6px 16px;cursor:pointer;font-weight:600;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(20,50,80,.15)}
-.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.count{font-size:1.05rem} .count b{font-family:var(--display);font-size:1.25rem}
-.info{background:var(--chip);color:var(--accent-ink);border-radius:12px;padding:12px 14px}
+/* masthead */
+.mast{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:22px 18px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+.brand svg{width:26px;height:33px}
+.brand b{font-size:1.5rem;font-weight:800;letter-spacing:-.025em;line-height:1}
+.mast-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:.92rem;color:var(--ink-2)}
+#live{display:inline-flex;align-items:center;gap:7px}
+#live i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+#live.on i{background:var(--live)}
 
-.bld{display:grid;grid-template-columns:minmax(120px,220px) 1fr;gap:4px 14px;padding:6px 0;align-items:start}
-.bname{direction:rtl;text-align:right;font-weight:600}
+.glass .bg{fill:var(--line-2)} .glass .w{fill:var(--water)} .glass .rim{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
+
+.status{margin:16px 0 0;font-size:.95rem;color:var(--ink-2)}
+
+/* tabs and controls */
+.needs-data{display:flex;flex-direction:column;gap:18px}
+.loading .needs-data{display:none}
+main{padding-block:26px 36px}
+.tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;padding:8px 0;cursor:pointer;color:var(--muted);font-weight:700;font-size:1.02rem;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--royal)}
+.controls{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1 1 140px}
+#now-ctl,#pick-day,#pick-from,#pick-dur{flex:0 1 210px}
+#b-ctl{flex:1 1 220px}
+#b-pick{font-family:var(--he)}
+.field label{font-size:.88rem;font-weight:600;color:var(--ink-2)}
+select,input[type=search]{background:var(--plate);border:1px solid var(--line);border-radius:3px;padding:7px 10px;width:100%;min-width:0;height:40px}
+.when-choice{display:flex;gap:0;flex:none;border:2px solid var(--royal);border-radius:3px;height:40px}
+.when-choice button{border:0;background:transparent;padding:0 16px;cursor:pointer;font-weight:700;color:var(--ink)}
+.when-choice button[aria-pressed="true"]{background:var(--royal);color:#fff}
+
+/* results head */
+.rhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.rhead .count{font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+.rhead .sub{font-size:.9rem;color:var(--ink-2)}
+
+.info{background:var(--plate);border-left:4px solid var(--royal);padding:14px 16px}
+.empty{padding:16px 0;color:var(--ink-2)}
+.hint{font-size:.86rem;color:var(--muted);margin:0}
+
+/* The chosen building's card */
+.plate{width:100%;max-width:640px;margin:0 auto;direction:rtl;background:var(--card);border-radius:18px;border-top:4px solid var(--royal);overflow:hidden;
+  box-shadow:0 1px 0 var(--line), 0 14px 30px -14px rgba(16,40,120,.45)}
+.plate header{padding:22px 16px 4px;text-align:center}
+.plate h3{margin:0;font-family:var(--he);font-size:1.7rem;font-weight:800;line-height:1.15;color:var(--ink);text-wrap:balance}
+.rooms{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:16px 20px 24px}
+.rm{min-width:70px;padding:9px 12px 8px;border:0;border-radius:12px;background:var(--tile);text-align:center;cursor:pointer;transition:box-shadow .15s}
+.rm:hover{box-shadow:inset 0 0 0 2px var(--water)}
+.rm b{display:block;font-size:1.2rem;font-weight:700;line-height:1.1;color:var(--ink)}
+.rm small{display:block;margin-top:3px;font-size:.72rem;font-weight:700;color:var(--soon);direction:ltr;white-space:nowrap}
+.rm small::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:4px;vertical-align:1px}
+.plate .none{padding:10px 16px 26px;text-align:center;color:var(--muted);direction:ltr}
+
+/* every slot */
+.slots{border-top:1px solid var(--line)}
+.slot{border-bottom:1px solid var(--line)}
+.slot summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:7.5rem minmax(0,1fr) 6.5rem;gap:14px;align-items:center;padding:12px 0}
+.slot summary::-webkit-details-marker{display:none}
+.slot summary .t{font-weight:700}
+.slot summary .n{text-align:right;color:var(--ink-2)}
+.slot summary .n em{font-style:normal;font-weight:700;color:var(--accent)}
+.meter{height:6px;background:var(--line-2);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--water)}
+.slot > div{padding:0 0 14px}
+.bld{display:grid;grid-template-columns:minmax(130px, 220px) minmax(0,1fr);gap:6px 18px;padding:9px 0;border-top:1px dashed var(--line);direction:rtl}
+.bld:first-child{border-top:0}
+.bname{font-family:var(--he);font-weight:700;padding-top:2px}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-family:var(--mono);font-size:.82rem;padding:2px 9px;border-radius:999px;background:var(--tag);border:1px solid var(--tag-line);white-space:nowrap}
-.tag small{color:var(--accent);font-size:inherit}
-.hint{font-size:.8rem;color:var(--muted)}
+.tag{direction:ltr;font-weight:600;padding:2px 9px;border-radius:3px;background:var(--plate);border:1px solid var(--line);white-space:nowrap}
+.tag small{color:var(--muted);margin-left:5px;font-weight:400}
 
-details{border:1px solid var(--line);border-radius:14px;padding:0 14px}
-details + details{margin-top:8px}
-summary{cursor:pointer;padding:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-summary b{font-variant-numeric:tabular-nums}
-.meter{flex:none;width:64px;height:8px;border-radius:999px;background:var(--water);overflow:hidden;display:inline-block}
-.meter i{display:block;height:100%;background:var(--water-soft)}
-.now{font-size:.75rem;font-weight:700;color:var(--accent-ink);background:var(--chip);border-radius:999px;padding:1px 8px}
-details > div{padding-bottom:12px}
-
-.week{display:grid;grid-template-columns:3.2rem repeat(6,minmax(0,1fr));gap:2px;max-width:640px}
-.week .c{height:14px;border-radius:3px;background:var(--surface)}
+/* room schedule */
+.room-body{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:start}
+.agenda{display:flex;flex-direction:column;gap:6px}
+.blk{display:grid;grid-template-columns:7.2rem minmax(0,1fr);gap:12px;align-items:center;padding:10px 14px;border-radius:12px}
+.blk .t{font-weight:700;font-variant-numeric:tabular-nums}
+.blk.free{background:var(--card);box-shadow:inset 4px 0 0 var(--water), 0 1px 0 var(--line)}
+.blk.free .what{font-weight:700;color:var(--accent)}
+.blk.free.now{box-shadow:inset 4px 0 0 var(--live), 0 0 0 2px var(--live)}
+.blk.free.now .what::after{content:" · now";color:var(--live)}
+.blk.busy{background:transparent;color:var(--muted)}
+.blk.busy .what{font-family:var(--he);direction:rtl;text-align:right;color:var(--ink-2);font-weight:600}
+.blk.busy small{display:block;font-weight:400;color:var(--muted)}
+.room-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:flex-end;direction:rtl}
+.room-title b{font-size:2rem;font-weight:800;letter-spacing:-.02em}
+.room-title span{font-family:var(--he);font-size:1.2rem;font-weight:700;color:var(--ink-2)}
+h4{font-size:1rem;font-weight:700;margin:0 0 8px}
+.week{display:grid;grid-template-columns:3rem repeat(6,minmax(0,1fr));gap:2px}
+.week .c{height:13px;background:var(--plate)}
 .week .busy{background:var(--water)}
-.week .hd,.week .tm{background:none;height:auto;font-size:.75rem;color:var(--muted)}
-.week .hd{text-align:center} .week .hd.sel{color:var(--ink);font-weight:700}
-.week .tm{line-height:14px;font-variant-numeric:tabular-nums}
-.cls{display:flex;gap:14px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
-.cls .when{flex:none;font-variant-numeric:tabular-nums;color:var(--accent-ink);font-weight:600}
-.cls .what{flex:1;min-width:0;direction:rtl;text-align:right}
-.cls small{display:block;color:var(--muted)}
-h2{font-family:var(--display);font-weight:600;font-size:1.25rem;margin:4px 0 0}
+.week .hd,.week .tm{background:none;height:auto;font-size:.78rem;color:var(--muted)}
+.week .hd{text-align:center;padding-bottom:3px} .week .hd.sel{color:var(--ink);font-weight:800}
+.week .tm{line-height:13px}
+.cls{display:grid;grid-template-columns:minmax(0,1fr) 6.8rem;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);direction:rtl}
+.cls .when{font-weight:700;color:var(--accent);direction:ltr;text-align:left}
+.cls .what{font-family:var(--he);font-weight:700}
+.cls small{display:block;color:var(--muted);font-weight:400}
 
-footer{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:8px;font-size:.92rem}
-footer p{margin:0;max-width:68ch}
-footer .small{font-size:.8rem;color:var(--muted)}
+footer{border-top:2px solid var(--ink);padding-block:24px 30px}
+footer p{margin:0 0 6px;max-width:80ch;font-size:.88rem;color:var(--ink-2)}
+button.link{background:none;border:0;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font-weight:600}
 
-@media (max-width:640px){
-  .hero{gap:14px} .hero svg{width:52px;height:65px}
-  .name{font-size:1.85rem} .tagline{font-size:.92rem}
-  .filters,.row3,.row2{grid-template-columns:1fr}
-  .bld{grid-template-columns:1fr} .bname{text-align:left}
+@media (max-width:760px){
+  .room-body{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .page{padding-left:max(10px, env(safe-area-inset-left, 0px));padding-right:max(10px, env(safe-area-inset-right, 0px));
+    padding-block:max(10px, env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-bottom, 0px))}
+  #live{display:none}
+  .rooms{gap:8px;padding:14px 10px 20px}
+  .rm{min-width:64px;padding:8px 8px 7px}
+  .brand b{font-size:1.2rem}
+  .when-choice{width:100%} .when-choice button{flex:1}
+  .bld{grid-template-columns:1fr}
+  .slot summary{grid-template-columns:6.6rem minmax(0,1fr) 5.4rem;gap:10px}
 }
 </style>
 </head>
 <body>
+<div class="page">
+<div class="sheet loading" id="app">
+  <div class="gutter">
+    <header class="mast">
+      <div class="brand">
+        <svg class="glass" viewBox="0 0 64 80" aria-hidden="true"><defs><clipPath id="gm"><path d="M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z"/></clipPath></defs><g clip-path="url(#gm)"><rect class="bg" width="64" height="80"/><rect class="w" y="41" width="64" height="40"/></g><path class="rim" d="M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z" style="stroke-width:5"/></svg>
+        <b>Class Half Empty</b>
+      </div>
+      <div class="mast-tools">
+        <span id="live"><i></i><span id="live-text">Loading</span></span>
+      </div>
+    </header>
 
-<div class="wrap loading" id="app">
-  <header class="hero">
-    <svg class="glass" viewBox="0 0 64 80" role="img" id="glass" aria-label="glass of water"></svg>
-    <div>
-      <h1 class="name">Class <span>Half</span> Empty</h1>
-      <div class="tagline">Find an empty classroom at the Technion, right now or any hour of the week.</div>
-      <div class="stat" id="stat"></div>
-      <div class="note">Independent student project, not an official Technion service. Data thanks to <a href="https://cheesefork.cf" target="_blank" rel="noopener">CheeseFork</a>.</div>
-    </div>
-  </header>
-
-  <div class="snap"><label for="sem">Semester</label><select id="sem"></select><span id="status">Loading the timetable…</span></div>
-
-  <div class="needs-data">
-  <div class="filters">
-    <div class="field"><label for="bsel">Building</label><select id="bsel"></select></div>
-    <div class="field"><label for="q">Search room or building</label><input id="q" type="search" placeholder="e.g. 301 or אולמן" autocomplete="off"></div>
+    <p class="status" id="status" aria-live="polite">Downloading the latest timetable…</p>
   </div>
 
-  <div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="tab-find" aria-selected="true">Find a room</button>
-      <button class="tab" role="tab" id="tab-slots" aria-selected="false">Every slot</button>
-      <button class="tab" role="tab" id="tab-room" aria-selected="false">Room schedule</button>
-    </div>
-  </div>
+  <main class="gutter">
+    <div class="needs-data">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-find" aria-selected="true">Find a room</button>
+        <button class="tab" role="tab" id="tab-slots" aria-selected="false">Every hour</button>
+        <button class="tab" role="tab" id="tab-room" aria-selected="false">Room schedule</button>
+      </div>
 
-  <section class="panel" id="p-find">
-    <div class="seg" role="group" aria-label="When">
-      <button id="m-now" aria-pressed="true">Right now</button>
-      <button id="m-pick" aria-pressed="false">Pick a time</button>
-    </div>
-    <div id="now-ctl" class="row3">
-      <div class="field"><label for="need">Need it for at least</label><select id="need"></select></div>
-    </div>
-    <div id="pick-ctl" class="row3" hidden>
-      <div class="field"><label for="f-day">Day</label><select id="f-day"></select></div>
-      <div class="field"><label for="f-from">From</label><select id="f-from"></select></div>
-      <div class="field"><label for="f-dur">For at least</label><select id="f-dur"></select></div>
-    </div>
-    <div id="find-out"></div>
-  </section>
+      <div class="controls" id="p-find">
+        <div class="when-choice" role="group" aria-label="When">
+          <button id="m-now" aria-pressed="true">Right now</button>
+          <button id="m-pick" aria-pressed="false">Pick a time</button>
+        </div>
+        <div class="field" id="now-ctl"><label for="need">Free for at least</label><select id="need"></select></div>
+        <div class="field" id="pick-day" hidden><label for="f-day">Day</label><select id="f-day"></select></div>
+        <div class="field" id="pick-from" hidden><label for="f-from">From</label><select id="f-from"></select></div>
+        <div class="field" id="pick-dur" hidden><label for="f-dur">For at least</label><select id="f-dur"></select></div>
+        <div class="field" id="b-ctl"><label for="b-pick">Building</label><select id="b-pick" dir="rtl"></select></div>
+      </div>
+      <section id="find-out" class="needs-data" style="gap:14px"></section>
 
-  <section class="panel" id="p-slots" hidden>
-    <div class="row3"><div class="field"><label for="s-day">Day</label><select id="s-day"></select></div></div>
-    <div id="slots-out"></div>
-  </section>
+      <div class="controls" id="filters" hidden>
+        <div class="field"><label for="bsel">Building</label><select id="bsel"></select></div>
+        <div class="field"><label for="q">Search</label><input id="q" type="search" placeholder="Room or building, e.g. 301" autocomplete="off"></div>
+      </div>
+      <div class="controls" id="p-slots" hidden>
+        <div class="field" style="flex:0 1 240px"><label for="s-day">Day</label><select id="s-day"></select></div>
+      </div>
+      <section id="slots-out" hidden></section>
 
-  <section class="panel" id="p-room" hidden>
-    <div class="row2">
-      <div class="field"><label for="r-room">Room</label><select id="r-room"></select></div>
-      <div class="field"><label for="r-day">Day</label><select id="r-day"></select></div>
+      <div class="controls" id="p-room" hidden>
+        <div class="field" style="flex:2 1 260px"><label for="r-room">Room</label><select id="r-room"></select></div>
+        <div class="field" style="flex:1 1 170px"><label for="r-day">Day</label><select id="r-day"></select></div>
+      </div>
+      <section id="room-out" hidden></section>
     </div>
-    <div id="room-out"></div>
-  </section>
+  </main>
 
-  </div>
-
-  <footer>
-    <h2>About &amp; credits</h2>
-    <p><b>Class Half Empty is an independent student project.</b> It is not an official Technion service and is not affiliated with or endorsed by the Technion.</p>
-    <p>Timetable data comes from the Technion's public course catalog, collected by <a href="https://github.com/michael-maltsev/technion-sap-info-fetcher" target="_blank" rel="noopener">technion-sap-info-fetcher</a> by Michael Maltsev, the data source behind <a href="https://cheesefork.cf" target="_blank" rel="noopener">CheeseFork</a>. Huge thanks to the creators of CheeseFork: this app couldn't exist without their work. Class Half Empty is not part of CheeseFork, and its code is independent.</p>
-    <p class="small">"Free" means no course in the Technion timetable is scheduled there at that time. Exams, events, reservations and locked rooms aren't in the data, and only rooms that host at least one course this semester are listed. Always check the official Technion timetable before relying on a room.</p>
+  <footer class="gutter">
+    <p>“Free” means no class is scheduled; exams, events and locked rooms aren't in the data.</p>
+    <p>Timetable data from <a href="https://github.com/michael-maltsev/technion-sap-info-fetcher" target="_blank" rel="noopener noreferrer">technion-sap-info-fetcher</a> by Michael Maltsev, the source behind <a href="https://cheesefork.cf" target="_blank" rel="noopener noreferrer">CheeseFork</a>. Thank you, CheeseFork. This is an independent student project, not part of CheeseFork or the Technion.</p>
+    <p>No accounts, cookies, tracking or analytics. Nothing is stored.</p>
   </footer>
+</div>
 </div>
 
 <script>
@@ -187,6 +252,7 @@ const DAYS_HE = ["ראשון", "שני", "שלישי", "רביעי", "חמישי
 const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
 const SEM_NAMES = {200: "Winter", 201: "Spring", 202: "Summer"};
 const S0 = 8*60+30, S1 = 21*60+30;
+const SLOTS = []; for (let t = S0; t < S1; t += 60) SLOTS.push([t, t + 60]);
 const $ = id => document.getElementById(id);
 const fmt = m => String(Math.floor(m/60)).padStart(2,"0") + ":" + String(m%60).padStart(2,"0");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -194,6 +260,7 @@ const durLabel = m => (m >= 60 ? Math.floor(m/60) + "h" : "") + (m % 60 ? (m >= 
 const semLabel = s => s.semester === 200
   ? `Winter ${s.year}–${String(s.year + 1).slice(2)}`
   : `${SEM_NAMES[s.semester] || "Semester"} ${s.year + 1}`;
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function toMin(t) {
   const [h, m] = t.trim().split(":").map(Number);
@@ -250,16 +317,6 @@ const live = () => inSem() && NOW.day <= 5 && NOW.min >= S0 && NOW.min < S1;
 const isFree = (iv, s, e) => !iv.some(([a, b]) => a < e && b > s);
 const freeUntil = (iv, t) => { let m = null; for (const [a, b] of iv) if (b > t && a >= t && (m === null || a < m)) m = a; return m; };
 
-function glass(fill) {
-  const y = 74 - 66 * Math.max(0, Math.min(1, fill));
-  const wave = l => `M-64 ${l.toFixed(1)} ` + "q8 -3 16 0 t16 0 ".repeat(6) + "V80 H-64 Z";
-  const P = "M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z";
-  $("glass").innerHTML = `<defs><clipPath id="gc"><path d="${P}"/></clipPath></defs>
-    <g clip-path="url(#gc)"><rect class="bg" width="64" height="80"/><path class="w1" d="${wave(y - 1.5)}"/><path class="w2" d="${wave(y)}"/></g>
-    <path class="rim" d="${P}"/><path class="shine" d="M16 14 L20 64"/>`;
-  $("glass").setAttribute("aria-label", `glass ${Math.round(fill * 100)}% full of water`);
-}
-
 function fillSelect(el, items, label, selected) {
   const keep = el.value;
   el.innerHTML = items.map(v => `<option value="${v}">${esc(label(v))}</option>`).join("");
@@ -272,29 +329,36 @@ function rooms() {
   const b = $("bsel").value, q = $("q").value.trim().toLowerCase();
   return order.filter(i => (!b || D.rooms[i][0] === b) && (!q || `${D.rooms[i][1]} ${D.rooms[i][0]}`.toLowerCase().includes(q)));
 }
-
-function showRooms(hits) {
-  if (!hits.length) return `<p>Every listed room is in use.</p>`;
+function byBuilding(hits) {
   const groups = new Map();
-  for (const [i, u] of hits) { const b = D.rooms[i][0]; if (!groups.has(b)) groups.set(b, []); groups.get(b).push([D.rooms[i][1], u]); }
-  let h = "";
-  for (const [b, rs] of groups) {
-    h += `<div class="bld"><div class="bname">${esc(b)}</div><div class="tags">` + rs.map(([n, u]) =>
-      `<span class="tag" title="free ${u === null ? "rest of day" : "until " + fmt(u)}">${esc(n)}${u === null ? "" : ` <small>→${fmt(u)}</small>`}</span>`).join("") + `</div></div>`;
-  }
-  return h + `<p class="hint">→ time = when the room's next class starts. No arrow = free for the rest of the day.</p>`;
+  for (const [i, u] of hits) { const b = D.rooms[i][0]; if (!groups.has(b)) groups.set(b, []); groups.get(b).push([D.rooms[i][1], u, i]); }
+  return groups;
 }
 
-// The water is the rooms in use; the empty part of the glass is what you're looking for.
-function renderHeader() {
-  if (D && live()) {
-    const b = D.rooms.reduce((n, _, i) => n + !isFree(busy[i][NOW.day], NOW.min, NOW.min + 1), 0);
-    glass(b / D.rooms.length);
-    $("stat").innerHTML = `Right now <b>${D.rooms.length - b}</b> of ${D.rooms.length} rooms are empty`;
-  } else {
-    glass(.5);
-    $("stat").textContent = D ? "No classes running right now · plan ahead below" : "Loading the timetable…";
-  }
+// ---- the chosen building's card (Find a room)
+function card(b, rs) {
+  return `<article class="plate"><header><h3>${esc(b)}</h3></header>${rs.length
+    ? `<div class="rooms">${rs.map(([n, u, i]) => `<button class="rm" data-r="${i}" title="See room ${esc(n)}'s free times"><b class="num">${esc(n)}</b>${u === null ? ""
+        : `<small class="num">until ${fmt(u)}</small>`}</button>`).join("")}</div>`
+    : `<div class="none">No free rooms here at this time.</div>`}</article>`;
+}
+$("find-out").addEventListener("click", e => {
+  const tile = e.target.closest(".rm");
+  if (tile) openRoom(+tile.dataset.r, mode === "pick" ? +$("f-day").value : (NOW.day <= 5 ? NOW.day : 0));
+});
+
+// ---- compact building rows (Every hour)
+function rows(hits) {
+  const groups = byBuilding(hits);
+  if (!groups.size) return `<div class="empty">Every listed room is in use.</div>`;
+  return [...groups].map(([b, rs]) => `<div class="bld"><div class="bname">${esc(b)}</div><div class="tags">` + rs.map(([n, u]) =>
+    `<span class="tag num" title="free ${u === null ? "for the rest of the day" : "until " + fmt(u)}">${esc(n)}${u === null ? "" : `<small>until ${fmt(u)}</small>`}</span>`).join("") + `</div></div>`).join("");
+}
+
+// ---- live indicator
+function renderSummary() {
+  $("live").classList.toggle("on", !!D && live());
+  $("live-text").textContent = !D ? "Loading" : live() ? "Live" : "Outside class hours";
 }
 
 // ---- find a room
@@ -303,45 +367,43 @@ function renderFind() {
   $("m-now").setAttribute("aria-pressed", mode === "now");
   $("m-pick").setAttribute("aria-pressed", mode === "pick");
   $("now-ctl").hidden = mode !== "now" || !live();
-  $("pick-ctl").hidden = mode !== "pick";
-  const rs = rooms();
-  if (!rs.length) { $("find-out").innerHTML = `<p>No rooms match that filter.</p>`; return; }
+  for (const id of ["pick-day", "pick-from", "pick-dur"]) $(id).hidden = mode !== "pick";
+  const rs = order, out = $("find-out");
+  let hits, head;
   if (mode === "now") {
-    const h = `<div><b>${esc(NOW.label)}</b> · Israel time</div>`;
     if (!live()) {
       const why = !inSem() ? "This semester isn't in session today"
         : NOW.day === 6 ? "It's Saturday, so no classes are scheduled"
         : `No classes are scheduled at this hour (teaching runs ${fmt(S0)}–${fmt(S1)})`;
-      $("find-out").innerHTML = h + `<div class="info">${why}. Every room is technically free, though buildings may be locked. Choose <b>Pick a time</b> to plan ahead.</div>`;
+      out.innerHTML = `<div class="info">${why}. Choose <b>Pick a time</b> to plan ahead.</div>`;
       return;
     }
     const need = +$("need").value;
-    const hits = rs.filter(i => isFree(busy[i][NOW.day], NOW.min, NOW.min + Math.max(need, 1))).map(i => [i, freeUntil(busy[i][NOW.day], NOW.min)]);
-    $("find-out").innerHTML = h + `<p class="count"><b>${hits.length}</b> of ${rs.length} rooms are empty right now</p>` + showRooms(hits);
+    hits = rs.filter(i => isFree(busy[i][NOW.day], NOW.min, NOW.min + Math.max(need, 1))).map(i => [i, freeUntil(busy[i][NOW.day], NOW.min)]);
+    head = `Empty right now · ${fmt(NOW.min)}`;
   } else {
     const d = +$("f-day").value, t0 = +$("f-from").value, t1 = Math.min(S1, t0 + +$("f-dur").value);
-    const hits = rs.filter(i => isFree(busy[i][d], t0, t1)).map(i => [i, freeUntil(busy[i][d], t0)]);
-    $("find-out").innerHTML = `<p class="count"><b>${hits.length}</b> of ${rs.length} rooms free on ${DAYS[d]} from ${fmt(t0)} to ${fmt(t1)}</p>` + showRooms(hits);
+    hits = rs.filter(i => isFree(busy[i][d], t0, t1)).map(i => [i, freeUntil(busy[i][d], t0)]);
+    head = `${DAYS[d]}, ${fmt(t0)}–${fmt(t1)}`;
   }
+  const b = $("b-pick").value;
+  out.innerHTML = `<div class="rhead"><div class="count">${head}</div></div>` + card(b, byBuilding(hits).get(b) || []);
 }
 
-// ---- every slot
+// ---- every hour
 function renderSlots() {
-  const rs = rooms(), d = +$("s-day").value;
-  if (!rs.length) { $("slots-out").innerHTML = `<p>No rooms match that filter.</p>`; return; }
+  const rs = rooms(), d = +$("s-day").value, out = $("slots-out");
+  if (!rs.length) { out.innerHTML = `<div class="empty">No rooms match that filter.</div>`; return; }
   const today = d === NOW.day && inSem();
-  let cur = null, h = "";
-  for (let s = S0, k = 0; s < S1; s += 60, k++) {
-    const e = s + 60;
-    if (today && cur === null && NOW.min < e) cur = k;
+  const cur = today ? SLOTS.findIndex(([, e]) => NOW.min < e) : -1;
+  out.innerHTML = `<div class="slots">` + SLOTS.map(([s, e], k) => {
     const hits = rs.filter(i => isFree(busy[i][d], s, e)).map(i => [i, freeUntil(busy[i][d], e)]);
-    const open = cur !== null ? (k === cur || k === cur + 1) : (!today && k === 0);
-    h += `<details${open ? " open" : ""}><summary><b>${fmt(s)}–${fmt(e)}</b>
-      <span class="meter" title="share of rooms empty"><i style="width:${Math.round(100 * hits.length / rs.length)}%"></i></span>
-      <span>${hits.length} / ${rs.length} free</span>${k === cur ? `<span class="now">now</span>` : ""}</summary>
-      <div>${showRooms(hits)}</div></details>`;
-  }
-  $("slots-out").innerHTML = h;
+    const open = cur >= 0 ? (k === cur || k === cur + 1) : k === 0;
+    return `<details class="slot"${open ? " open" : ""}><summary><span class="t num">${fmt(s)}–${fmt(e)}</span>
+      <span class="meter" title="share of rooms free"><i style="width:${Math.round(100 * hits.length / rs.length)}%"></i></span>
+      <span class="n num">${k === cur ? "<em>now</em> · " : ""}${hits.length} free</span></summary>
+      <div>${rows(hits)}</div></details>`;
+  }).join("") + `</div>`;
 }
 
 // ---- room schedule
@@ -351,30 +413,58 @@ function renderRoomList() {
   if (rs.map(String).includes(keep)) $("r-room").value = keep;
 }
 function renderRoom() {
-  if (!$("r-room").options.length) { $("room-out").innerHTML = `<p>No rooms match that filter.</p>`; return; }
+  const out = $("room-out");
+  if (!$("r-room").options.length) { out.innerHTML = `<div class="empty">No rooms match that filter.</div>`; return; }
   const r = +$("r-room").value, d = +$("r-day").value;
-  let h = `<div class="week"><div class="c hd"></div>` + dayItems.map(x => `<div class="c hd${x === d ? " sel" : ""}">${DAYS[x].slice(0,3)}</div>`).join("");
+
+  // the chosen day as free and busy blocks, from 08:30 to 21:30
+  const evs = D.events.filter(ev => ev[0] === r && ev[1] === d).sort((a, b) => a[2] - b[2]);
+  const blocks = [];
+  let cur = S0;
+  for (const ev of evs) {
+    if (ev[2] > cur) blocks.push({free: true, s: cur, e: ev[2]});
+    blocks.push({free: false, s: ev[2], e: ev[3], ev});
+    cur = Math.max(cur, ev[3]);
+  }
+  if (cur < S1) blocks.push({free: true, s: cur, e: S1});
+  const nowHere = live() && d === NOW.day;
+  const agenda = blocks.map(b => b.free
+    ? `<div class="blk free${nowHere && b.s <= NOW.min && NOW.min < b.e ? " now" : ""}"><span class="t num">${fmt(b.s)}–${fmt(b.e)}</span><span class="what">Free · ${durLabel(b.e - b.s)}</span></div>`
+    : `<div class="blk busy"><span class="t num">${fmt(b.s)}–${fmt(b.e)}</span><span class="what">${esc(D.courses[b.ev[4]][1])}<small>${esc(D.courses[b.ev[4]][0])}${b.ev[5] ? " · " + esc(b.ev[5]) : ""}</small></span></div>`).join("");
+
+  let grid = `<div class="week"><div class="c hd"></div>` + dayItems.map(x => `<div class="c hd${x === d ? " sel" : ""}">${DAYS[x].slice(0,3)}</div>`).join("");
   for (let t = S0; t < S1; t += 30)
-    h += `<div class="c tm">${t % 60 === 30 ? fmt(t) : ""}</div>` + dayItems.map(x => `<div class="c${isFree(busy[r][x], t, t + 30) ? "" : " busy"}"></div>`).join("");
-  h += `</div><p class="hint">Blue = a class is scheduled. Light = free.</p><h2>Classes on ${DAYS[d]}</h2>`;
-  const sub = D.events.filter(ev => ev[0] === r && ev[1] === d).sort((a, b) => a[2] - b[2]);
-  h += sub.length ? sub.map(([, , s, e, c, type]) => `<div class="cls"><div class="when">${fmt(s)}–${fmt(e)}</div><div class="what">${esc(D.courses[c][1])}<small>${esc(D.courses[c][0])}${type ? " · " + esc(type) : ""}</small></div></div>`).join("")
-    : `<p>Nothing scheduled here that day.</p>`;
-  $("room-out").innerHTML = h;
+    grid += `<div class="c tm num">${t % 60 === 30 ? fmt(t) : ""}</div>` + dayItems.map(x => `<div class="c${isFree(busy[r][x], t, t + 30) ? "" : " busy"}"></div>`).join("");
+  grid += `</div>`;
+
+  out.innerHTML = `<div class="room-title"><span>${esc(D.rooms[r][0])}</span><b class="num">${esc(D.rooms[r][1])}</b></div>
+    <div class="room-body"><div><h4>${DAYS[d]}</h4><div class="agenda">${agenda}</div></div><div><h4>Week · blue = class</h4>${grid}</div></div>`;
+}
+
+// open a room's schedule from a tile in the carousel
+function openRoom(r, day) {
+  $("bsel").value = ""; $("q").value = "";
+  renderRoomList();
+  $("r-room").value = String(r);
+  $("r-day").value = String(day);
+  show("room");
+  document.querySelector(".tabs").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "start"});
 }
 
 // ---- tabs and wiring
 const TABS = {find: renderFind, slots: renderSlots, room: renderRoom};
+const OUT = {find: "find-out", slots: "slots-out", room: "room-out"};
 let tab = "find";
 function show(t) {
   tab = t;
-  for (const k in TABS) { $("tab-" + k).setAttribute("aria-selected", k === t); $("p-" + k).hidden = k !== t; }
+  for (const k in TABS) { $("tab-" + k).setAttribute("aria-selected", k === t); $("p-" + k).hidden = $(OUT[k]).hidden = k !== t; }
+  $("filters").hidden = t === "find";
   if (D) TABS[t]();
 }
 for (const k in TABS) $("tab-" + k).addEventListener("click", () => show(k));
 $("m-now").addEventListener("click", () => { mode = "now"; renderFind(); });
 $("m-pick").addEventListener("click", () => { mode = "pick"; renderFind(); });
-for (const id of ["need","f-day","f-from","f-dur"]) $(id).addEventListener("change", renderFind);
+for (const id of ["need","f-day","f-from","f-dur","b-pick"]) $(id).addEventListener("change", renderFind);
 $("s-day").addEventListener("change", renderSlots);
 $("r-room").addEventListener("change", renderRoom);
 $("r-day").addEventListener("change", renderRoom);
@@ -385,11 +475,12 @@ $("q").addEventListener("input", refilter);
 function setLoading(on, msg) {
   $("app").classList.toggle("loading", on);
   $("status").innerHTML = msg;
+  $("status").hidden = !msg;
 }
 
 async function loadSemester(sem) {
   SEM = sem; D = null;
-  renderHeader();
+  renderSummary();
   setLoading(true, `Downloading the ${esc(semLabel(sem))} timetable…`);
   try {
     D = parseCourses(await getJSON(`courses_${sem.year}_${sem.semester}.json`));
@@ -398,7 +489,7 @@ async function loadSemester(sem) {
     $("retry").addEventListener("click", () => loadSemester(sem));
     return;
   }
-  if (!D.rooms.length) { setLoading(true, "This semester has no room assignments yet."); return; }
+  if (!D.rooms.length) { D = null; renderSummary(); setLoading(true, "This semester has no room assignments yet."); return; }
   const num = s => parseInt(String(s).replace(/\D/g, "") || "0", 10);
   order = D.rooms.map((_, i) => i).sort((a, b) => {
     const A = D.rooms[a], B = D.rooms[b];
@@ -411,11 +502,13 @@ async function loadSemester(sem) {
   const keepB = $("bsel").value;
   $("bsel").innerHTML = `<option value="">All buildings</option>` + buildings.map(b => `<option>${esc(b)}</option>`).join("");
   if (buildings.includes(keepB)) $("bsel").value = keepB;
+  const keepPick = $("b-pick").value;
+  $("b-pick").innerHTML = buildings.map(b => `<option>${esc(b)}</option>`).join("");
+  if (buildings.includes(keepPick)) $("b-pick").value = keepPick;
 
-  const loaded = new Intl.DateTimeFormat("en-GB", {timeZone:"Asia/Jerusalem", day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"}).format(new Date());
-  setLoading(false, `${D.rooms.length} teaching rooms in ${buildings.length} buildings · live timetable, loaded ${loaded} (Israel time)`);
+  setLoading(false, "");
   mode = live() ? "now" : "pick";
-  renderHeader(); renderRoomList(); show(tab);
+  renderSummary(); renderRoomList(); show(tab);
 }
 
 async function start() {
@@ -426,7 +519,7 @@ async function start() {
   const nowLive = NOW.day <= 5 && NOW.min >= S0 && NOW.min < S1;
   fillSelect($("f-from"), times, fmt, nowLive ? Math.max(S0, Math.min(S1 - 30, Math.ceil(NOW.min / 30) * 30)) : S0);
   fillSelect($("f-dur"), [30,60,90,120,180,240], durLabel, 60);
-  renderHeader();
+  renderSummary();
 
   let sems;
   try {
@@ -438,10 +531,6 @@ async function start() {
   }
   const started = sems.filter(s => s.start <= NOW.iso);
   const current = (started.length ? started : sems).reduce((a, b) => (b.start > a.start ? b : a));
-  const opts = [...sems].sort((a, b) => (a.start < b.start ? 1 : -1));
-  $("sem").innerHTML = opts.map((s, i) => `<option value="${i}">${esc(semLabel(s))}</option>`).join("");
-  $("sem").value = String(opts.indexOf(current));
-  $("sem").onchange = () => loadSemester(opts[+$("sem").value]);
   loadSemester(current);
 }
 
@@ -450,7 +539,7 @@ start();
 setInterval(() => {
   NOW = israelNow();
   if (!D) return;
-  renderHeader();
+  renderSummary();
   if (tab === "find" && mode === "now") renderFind();
 }, 60000);
 </script>

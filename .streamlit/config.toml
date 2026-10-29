@@ -5,3 +5,7 @@ backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F2F7FB"
 textColor = "#1C2E3D"
 font = "sans serif"
+
+[browser]
+# Don't send usage statistics to Streamlit.
+gatherUsageStats = false
