@@ -9,7 +9,6 @@ import datetime as dt
 import html
 from zoneinfo import ZoneInfo
 
-import pandas as pd
 import requests
 import streamlit as st
 from PIL import Image, ImageDraw
@@ -83,10 +82,10 @@ def load_semesters() -> list[dict]:
 
 
 @st.cache_data(ttl=CACHE_TTL, show_spinner="Downloading the latest timetable…")
-def load_events(year: int, semester: int) -> tuple[pd.DataFrame, str]:
+def load_events(year: int, semester: int) -> tuple[list[dict], str]:
     r = requests.get(f"{DATA_BASE}/courses_{year}_{semester}.json", timeout=60)
     r.raise_for_status()
-    rows = []
+    rows, seen = [], set()
     for c in r.json():
         g = c.get("general", {})
         for s in c.get("schedule", []):
@@ -100,21 +99,22 @@ def load_events(year: int, semester: int) -> tuple[pd.DataFrame, str]:
                 a, e = (to_min(x) for x in hours.split(" - "))
             except ValueError:
                 continue
-            rows.append(
-                {
-                    "building": building,
-                    "room": str(room),
-                    "day": DAYS_HE.index(day),
-                    "start": a,
-                    "end": e,
-                    "course_no": g.get("מספר מקצוע", ""),
-                    "course": g.get("שם מקצוע", ""),
-                    "type": (s.get("סוג") or "").strip(),
-                }
-            )
-    df = pd.DataFrame(rows).drop_duplicates(ignore_index=True)
+            row = {
+                "building": building,
+                "room": str(room),
+                "day": DAYS_HE.index(day),
+                "start": a,
+                "end": e,
+                "course_no": g.get("מספר מקצוע", ""),
+                "course": g.get("שם מקצוע", ""),
+                "type": (s.get("סוג") or "").strip(),
+            }
+            key = tuple(row.values())
+            if key not in seen:
+                seen.add(key)
+                rows.append(row)
     fetched = dt.datetime.now(TZ).strftime("%d %b %Y, %H:%M")
-    return df, fetched
+    return rows, fetched
 
 
 def room_sort_key(r: tuple[str, str]):
@@ -123,11 +123,11 @@ def room_sort_key(r: tuple[str, str]):
     return (b, int(digits) if digits else 0, n)
 
 
-def busy_index(df: pd.DataFrame) -> dict:
+def busy_index(events: list[dict]) -> dict:
     """{(building, room): {day: [(start, end), ...]}}"""
     idx: dict = {}
-    for row in df.itertuples(index=False):
-        idx.setdefault((row.building, row.room), {}).setdefault(row.day, []).append((row.start, row.end))
+    for ev in events:
+        idx.setdefault((ev["building"], ev["room"]), {}).setdefault(ev["day"], []).append((ev["start"], ev["end"]))
     for days in idx.values():
         for d in days:
             days[d].sort()
@@ -168,7 +168,21 @@ def show_rooms(free: list) -> None:
 
 
 # ---------------------------------------------------------------- page
-st.set_page_config(page_title="Class Half Empty", page_icon=glass_icon(), layout="wide")
+CREDITS_MD = (
+    "**Class Half Empty is an independent student project.** It is not an official Technion service "
+    "and is not affiliated with or endorsed by the Technion.\n\n"
+    "Timetable data comes from the Technion's public course catalog, collected by "
+    "[technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher) by Michael Maltsev, "
+    "the data source behind [CheeseFork](https://cheesefork.cf). Huge thanks to the creators of CheeseFork: "
+    "this app couldn't exist without their work. Class Half Empty is not part of CheeseFork, and its code is independent."
+)
+
+st.set_page_config(
+    page_title="Class Half Empty",
+    page_icon=glass_icon(),
+    layout="wide",
+    menu_items={"About": CREDITS_MD},
+)
 st.markdown(
     """
 <style>
@@ -177,6 +191,8 @@ st.markdown(
 .hero .name{font-size:2.5rem;font-weight:750;letter-spacing:-.03em;line-height:1.05;color:#1C2E3D}
 .hero .name span{color:#2F8FD0}
 .hero .tagline{color:#5A7184;margin-top:4px}
+.hero .note{color:#5A7184;font-size:.8rem;margin-top:8px}
+.hero .note a{color:#1C5A85}
 .hero .stat{display:inline-block;margin-top:10px;padding:4px 12px;border-radius:999px;
             background:#EAF4FB;color:#1C5A85;font-size:.9rem}
 .glass .wave{animation:wave 3s linear infinite}
@@ -190,7 +206,25 @@ st.markdown(
 .tag{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;padding:2px 9px;border-radius:999px;
      background:#fff;border:1px solid #CFE3F1;color:#1C2E3D;white-space:nowrap}
 .tag small{color:#2F8FD0;font-family:inherit}
-@media (max-width:640px){.bld{grid-template-columns:1fr}.hero .name{font-size:1.9rem}}
+.week{display:grid;grid-template-columns:3.2rem repeat(6,minmax(0,1fr));gap:2px;max-width:640px;margin:8px 0}
+.week .cell{height:14px;border-radius:3px;background:#F2F7FB}
+.week .busy{background:#5DB0E3}
+.week .hd,.week .tm{background:none;height:auto;font-size:.75rem;color:#5A7184}
+.week .hd{text-align:center;padding-bottom:2px}
+.week .hd.sel{color:#1C2E3D;font-weight:700}
+.week .tm{line-height:14px;font-variant-numeric:tabular-nums}
+.cls{display:flex;gap:14px;align-items:baseline;padding:8px 0;border-bottom:1px solid #E1ECF4}
+.cls .when{flex:none;font-variant-numeric:tabular-nums;color:#1C5A85;font-weight:600}
+.cls .what{flex:1}
+.cls small{display:block;color:#5A7184}
+@media (max-width:640px){
+  .bld{grid-template-columns:1fr}
+  .bname{text-align:left}
+  .hero{gap:14px}
+  .hero .glass{width:52px;height:66px}
+  .hero .name{font-size:1.75rem}
+  .hero .tagline{font-size:.9rem}
+}
 .rtl{direction:rtl;text-align:right}
 </style>
 """,
@@ -224,22 +258,22 @@ with st.sidebar:
         st.rerun()
 
 try:
-    df, fetched = load_events(sem["year"], sem["semester"])
+    events, fetched = load_events(sem["year"], sem["semester"])
 except requests.RequestException as e:
     st.error(f"Couldn't download the timetable ({e}). Try again in a minute.")
     st.stop()
 
-if df.empty:
+if not events:
     st.warning("This semester has no room assignments yet.")
     st.stop()
 
-idx = busy_index(df)
+idx = busy_index(events)
 all_rooms = sorted(idx.keys(), key=room_sort_key)
 buildings = sorted({b for b, _ in all_rooms})
 
 st.caption(
     f"{sem_label(sem)} · {len(all_rooms)} teaching rooms in {len(buildings)} buildings · "
-    f"data fetched {fetched} (Israel time) · unofficial, not affiliated with the Technion"
+    f"data fetched {fetched} (Israel time)"
 )
 
 today_idx = (now.weekday() + 1) % 7  # Python Mon=0 → Technion Sun=0
@@ -260,7 +294,9 @@ hero.markdown(
     f'<div class="hero">{glass_svg(fill)}<div>'
     f'<div class="name">Class <span>Half</span> Empty</div>'
     f'<div class="tagline">Find an empty classroom at the Technion, right now or any hour of the week.</div>'
-    f'<div class="stat">{stat}</div></div></div>',
+    f'<div class="stat">{stat}</div>'
+    '<div class="note">Independent student project, not an official Technion service. '
+    'Data thanks to <a href="https://cheesefork.cf" target="_blank">CheeseFork</a>.</div></div></div>',
     unsafe_allow_html=True,
 )
 
@@ -363,31 +399,37 @@ with tab_room:
         pick = st.selectbox("Room", rooms, format_func=lambda r: f"{r[1]} — {r[0]}")
     with r2:
         day = day_select("room_day")
-    halfs = list(range(SLOT_START, SLOT_END, 30))
-    grid = pd.DataFrame(
-        [["busy" if not is_free(idx[pick].get(d, []), t, t + 30) else "" for d in range(6)] for t in halfs],
-        index=[fmt(t) for t in halfs],
-        columns=[d[:3] for d in DAYS_EN],
+    # Weekly grid: filled (water) cells are busy half hours, empty cells are free.
+    head = '<div class="cell hd"></div>' + "".join(
+        f'<div class="cell hd{" sel" if d == day else ""}">{DAYS_EN[d][:3]}</div>' for d in range(6)
     )
-    st.dataframe(
-        grid.style.map(lambda v: f"background-color:{WATER};color:white" if v else ""),
-        width="stretch",
-        height=(len(halfs) + 1) * 35 + 3,
+    body = "".join(
+        f'<div class="cell tm">{fmt(t) if t % 60 == 30 else ""}</div>'
+        + "".join(
+            f'<div class="cell{"" if is_free(idx[pick].get(d, []), t, t + 30) else " busy"}"></div>'
+            for d in range(6)
+        )
+        for t in range(SLOT_START, SLOT_END, 30)
     )
-    sub = df[(df.building == pick[0]) & (df.room == pick[1]) & (df.day == day)].sort_values("start")
+    st.markdown(f'<div class="week">{head}{body}</div>', unsafe_allow_html=True)
+    st.caption("Blue = a class is scheduled. White = free.")
+
+    sub = sorted(
+        (ev for ev in events if (ev["building"], ev["room"]) == pick and ev["day"] == day),
+        key=lambda ev: ev["start"],
+    )
     st.subheader(f"Classes on {DAYS_EN[day]}")
-    if sub.empty:
+    if not sub:
         st.write("Nothing scheduled here that day.")
     else:
-        st.dataframe(
-            pd.DataFrame({
-                "Time": [f"{fmt(a)}–{fmt(b)}" for a, b in zip(sub.start, sub.end)],
-                "Course": sub.course.values,
-                "No.": sub.course_no.values,
-                "Type": sub.type.values,
-            }),
-            hide_index=True,
-            width="stretch",
+        st.markdown(
+            "".join(
+                f'<div class="cls"><div class="when">{fmt(ev["start"])}–{fmt(ev["end"])}</div>'
+                f'<div class="what rtl">{html.escape(ev["course"])}'
+                f'<small>{html.escape(ev["course_no"])}{" · " + html.escape(ev["type"]) if ev["type"] else ""}</small></div></div>'
+                for ev in sub
+            ),
+            unsafe_allow_html=True,
         )
 
 st.divider()
@@ -396,10 +438,6 @@ st.caption(
     "Exams, events, reservations and locked rooms aren't in the data, and only rooms that host at least "
     "one course this semester are listed."
 )
-st.caption(
-    "Unofficial student project, not affiliated with or endorsed by the Technion. "
-    "Timetable data from the Technion's public course catalog, collected by "
-    "[technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher), "
-    "the data source behind [CheeseFork](https://cheesefork.cf). "
-    "Check the official timetable before relying on a room."
-)
+st.subheader("About & credits")
+st.markdown(CREDITS_MD)
+st.caption("Always check the official Technion timetable before relying on a room.")

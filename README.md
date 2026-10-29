@@ -2,6 +2,12 @@
 
 A Streamlit app that shows which Technion classrooms are empty in every hourly slot.
 The glass in the header fills with water as rooms fill with classes: the empty part is what you're after.
+
+> **Independent project, not an official Technion service.** Class Half Empty is not affiliated with or
+> endorsed by the Technion. Timetable data comes from
+> [technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher) by Michael Maltsev,
+> the data source behind [CheeseFork](https://cheesefork.cf). All credit for collecting the data goes to the
+> creators of CheeseFork. This app is not part of CheeseFork. See [Disclaimer & credits](#disclaimer--credits).
 Each time someone opens it, it downloads the latest timetable from the same source
 CheeseFork uses ([technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher)),
 cached for up to an hour. The sidebar has a "Refresh data now" button.
@@ -33,8 +39,8 @@ without visitors, and the first visitor after that waits about 30 seconds while 
 "Free" means no course is scheduled in the room at that time. Exams, events, reservations and
 locked rooms aren't in the data, and only rooms that host at least one course in the semester are listed.
 
-## Disclaimer
-This is an unofficial student project. It is not affiliated with or endorsed by the Technion.
+## Disclaimer & credits
+This is an independent student project. It is not an official Technion service and is not affiliated with or endorsed by the Technion.
 Timetable data comes from the Technion's public course catalog as collected by
 [technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher) (Michael Maltsev),
 the data source behind [CheeseFork](https://cheesefork.cf). This app's code is independent of those projects.
