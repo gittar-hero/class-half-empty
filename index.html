@@ -58,7 +58,7 @@ body::before{content:"";position:fixed;inset:-60%;z-index:-1;pointer-events:none
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='220' viewBox='0 0 130 220'%3E%3Cg fill='none' stroke='%239CC8FF' stroke-opacity='.5' stroke-width='2.5' stroke-linejoin='round'%3E%3Cg transform='translate%2810 15%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate%2875.0 125.0%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate%28-55.0 125.0%29'%3E%3Cpath d='M12.9 41 H51.1 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3Cg transform='translate%28108.5 80%29 rotate%28180%29'%3E%3Cpath d='M10 6 H54 L51.1 41 H12.9 Z' fill='%239CC8FF' fill-opacity='.3'/%3E%3Cpath d='M10 6 H54 L48.5 72 Q48 76 44 76 H20 Q16 76 15.5 72 Z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 0 / 54.6px 92.4px var(--frame);}
 .page{padding-block:max(28px, env(safe-area-inset-top, 0px)) calc(28px + env(safe-area-inset-bottom, 0px));
   padding-left:max(28px, env(safe-area-inset-left, 0px));padding-right:max(28px, env(safe-area-inset-right, 0px))}
-.sheet{max-width:1120px;margin:0 auto;background:var(--sheet);border-radius:6px;overflow:hidden}
+.sheet{max-width:880px;margin:0 auto;background:var(--sheet);border-radius:6px;overflow:hidden}
 .gutter{padding-left:clamp(16px, 4vw, 40px);padding-right:clamp(16px, 4vw, 40px)}
 
 /* masthead */
@@ -94,17 +94,13 @@ select,input[type=search]{background:var(--plate);border:1px solid var(--line);b
 .when-choice button{border:0;background:transparent;padding:0 16px;cursor:pointer;font-weight:700;color:var(--ink)}
 .when-choice button[aria-pressed="true"]{background:var(--royal);color:#fff}
 
-/* results head */
-.rhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
-.rhead .count{font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
-.rhead .sub{font-size:.9rem;color:var(--ink-2)}
 
 .info{background:var(--plate);border-left:4px solid var(--royal);padding:14px 16px}
 .empty{padding:16px 0;color:var(--ink-2)}
 .hint{font-size:.86rem;color:var(--muted);margin:0}
 
 /* The chosen building's card */
-.plate{width:100%;max-width:640px;margin:0 auto;direction:rtl;background:var(--card);border-radius:18px;border-top:4px solid var(--royal);overflow:hidden;
+.plate{width:100%;direction:rtl;background:var(--card);border-radius:18px;border-top:4px solid var(--royal);overflow:hidden;
   box-shadow:0 1px 0 var(--line), 0 14px 30px -14px rgba(16,40,120,.45)}
 .plate header{padding:22px 16px 4px;text-align:center}
 .plate h3{margin:0;font-family:var(--he);font-size:1.7rem;font-weight:800;line-height:1.15;color:var(--ink);text-wrap:balance}
@@ -172,6 +168,8 @@ button.link{background:none;border:0;padding:0;color:inherit;text-decoration:und
   .page{padding-left:max(10px, env(safe-area-inset-left, 0px));padding-right:max(10px, env(safe-area-inset-right, 0px));
     padding-block:max(10px, env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-bottom, 0px))}
   #live{display:none}
+  #now-ctl,#pick-day,#b-ctl{flex:1 1 100%}
+  #pick-from,#pick-dur{flex:1 1 40%}
   .rooms{gap:8px;padding:14px 10px 20px}
   .rm{min-width:64px;padding:8px 8px 7px}
   .brand b{font-size:1.2rem}
@@ -369,7 +367,7 @@ function renderFind() {
   $("now-ctl").hidden = mode !== "now" || !live();
   for (const id of ["pick-day", "pick-from", "pick-dur"]) $(id).hidden = mode !== "pick";
   const rs = order, out = $("find-out");
-  let hits, head;
+  let hits;
   if (mode === "now") {
     if (!live()) {
       const why = !inSem() ? "This semester isn't in session today"
@@ -380,14 +378,12 @@ function renderFind() {
     }
     const need = +$("need").value;
     hits = rs.filter(i => isFree(busy[i][NOW.day], NOW.min, NOW.min + Math.max(need, 1))).map(i => [i, freeUntil(busy[i][NOW.day], NOW.min)]);
-    head = `Empty right now · ${fmt(NOW.min)}`;
   } else {
     const d = +$("f-day").value, t0 = +$("f-from").value, t1 = Math.min(S1, t0 + +$("f-dur").value);
     hits = rs.filter(i => isFree(busy[i][d], t0, t1)).map(i => [i, freeUntil(busy[i][d], t0)]);
-    head = `${DAYS[d]}, ${fmt(t0)}–${fmt(t1)}`;
   }
   const b = $("b-pick").value;
-  out.innerHTML = `<div class="rhead"><div class="count">${head}</div></div>` + card(b, byBuilding(hits).get(b) || []);
+  out.innerHTML = card(b, byBuilding(hits).get(b) || []);
 }
 
 // ---- every hour
